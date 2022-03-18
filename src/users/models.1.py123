@@ -1,0 +1,72 @@
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from datetime import date
+from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
+from .managers import UserModelManager
+from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from simple_history.models import HistoricalRecords
+from django_currentuser.middleware import get_current_user, get_current_authenticated_user
+from django.conf import settings
+
+class UserModel(AbstractUser):  
+    email = models.EmailField(_('email address'), unique=True)
+    phone = models.CharField(max_length=100)
+    other_name = models.CharField(max_length=100,  blank=True)
+    date_of_birth = models.DateField( blank=True, null=True)
+    gender = models.CharField(
+        max_length=1, 
+        choices=settings.GENDER,
+         blank=True
+    )
+    photo_url = models.CharField(max_length=500,  blank=True)
+    bio = models.TextField(max_length=500, blank=True)
+    uAccountType = models.CharField(
+        max_length=8, choices=settings.UACCOUNTTYPE, default=settings.UACCOUNT_CONFIG["UACCOUNTTYPE_DEFAULT"])
+
+    # USERNAME_FIELD = settings.UACCOUNT_CONFIG["USERNAME_FIELD"]
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['phone']
+
+    objects = UserModelManager()
+
+       # HISTORY
+    history = HistoricalRecords()
+
+    def get_full_name(self):
+        return ("%s %s", self.first_name, self.last_name)
+    def get_short_name(self):
+        return ("%s %s", self.first_name)
+
+    def __str__(self):
+        return self.email
+
+class UserDocument(models.Model):
+    name = models.CharField(max_length=100)
+    file_hash = models.CharField(max_length=500, blank=True)
+    purpose = models.CharField(max_length=300)
+    url = models.CharField(max_length=200)
+       # HISTORY
+    history = HistoricalRecords()
+    #RELATIONS
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+
+class Address(models.Model):
+    apartment = models.CharField(max_length=200, blank=True)
+    street = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    postCode = models.CharField(max_length=100, blank=True)
+    zipCode = models.CharField(max_length=100, blank=True)
+    
+    #RELATIONS
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+      # HISTORY
+    history = HistoricalRecords()

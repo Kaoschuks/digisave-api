@@ -1,0 +1,30 @@
+pip install django
+pip install django-cors-headers
+pip install django-rest-auth
+pip install django-oauth-toolkit
+pip install django-filter 
+pip install markdown 
+pip install djangorestframework
+pip install djangorestframework-jwt
+pip install django-rest-auth[with_social]
+pip install django-allauth
+pip install coreapi
+pip install django-cors-middleware
+pip install drf-writable-nested
+pip install django-currentuser
+pip install django-db-logger
+pip install django-simple-history
+pip install django-file-upload
+
+auxiliary tools 
+pip install pylint 
+pip install yapf
+pip install pyyaml
+
+
+client id opoFnFWA8haGsMTDgj2NJ1scd9nGqpd2HFk8SV6k
+client secret TamRLURqes6TbeYaSHYjUGcZNESBKjkOr1ueZREKFxFKyzEh6GA08SmUno5lsi2gzz2CDMNWDqNYR2vLiR5wBZf5PV0CFz13NhrjgaTHYIswKMNl5csprH8fvcIaLtfT
+
+
+Notes:
+Need permission list, who can do what

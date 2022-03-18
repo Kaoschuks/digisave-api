@@ -1,0 +1,10 @@
+DAccount --> Withdrawal
+    numOfWithdrawals = models.IntegerField()
+    lastWithdrawalDate = models.DateField()
+    emergencyWithdrawalsCount = models.IntegerField() 
+    nextWithdrawalDate = models.DateField()
+
+Make search case insensitive
+
+Make sure all account on a witdrawal policy is moved to a different policy before that policy can be deleted
+
