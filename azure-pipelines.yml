@@ -61,14 +61,3 @@ steps:
     cd ./
     ls -shal
   displayName: 'Enter build folder'
-
-- task: FtpUpload@1
-  displayName: 'FTP Upload: Upload all files to server'
-  inputs:
-    credentialsOption: inputs
-    serverUrl: 'ftp://ftp.kelubaemeka.me/'
-    username: 'devs@digisave.ng'
-    password: 'Digisaver2019#'
-    rootDirectory: '$(Build.SourcesDirectory)'
-    remoteDirectory: /
-    preservePaths: true
